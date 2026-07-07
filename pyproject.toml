@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "numpy>=1.20.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rodhypix"
+version = "0.1.0"
+description = "Standalone reader for Rigaku .rodhypix detector images"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Robert Buecker", email = "robert.buecker@rigaku.com"}
+]
+keywords = ["rodhypix", "hypix", "rigaku", "crystallography", "microed"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Chemistry",
+]
+
+dependencies = [
+    "numpy>=1.20.0",
+]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.3.0"]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/robertbuecker/rodhypix"
+Repository = "https://github.com/robertbuecker/rodhypix"
+Issues = "https://github.com/robertbuecker/rodhypix/issues"
+
+[tool.setuptools]
+packages = ["rodhypix"]
+
+[tool.setuptools.package-data]
+rodhypix = ["py.typed"]

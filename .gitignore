@@ -1,0 +1,7 @@
+example_data
+build
+dist
+__pycache__
+*.egg-info
+*.whl
+*.pyd
