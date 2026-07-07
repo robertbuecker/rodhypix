@@ -1,0 +1,30 @@
+name: Build Windows wheels
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+
+jobs:
+  build:
+    name: Build Windows wheels
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v4.1.0
+        env:
+          CIBW_PLATFORM: windows
+          CIBW_BUILD: "cp38-win_amd64 cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64 cp314-win_amd64"
+          CIBW_SKIP: "pp* *-win32 *-win_arm64"
+          CIBW_TEST_COMMAND: >-
+            python -c "import rodhypix; print(rodhypix.HAS_NATIVE_CPP)"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-wheels
+          path: wheelhouse/*.whl
