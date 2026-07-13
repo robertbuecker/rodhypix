@@ -19,7 +19,7 @@ jobs:
         uses: pypa/cibuildwheel@v4.1.0
         env:
           CIBW_PLATFORM: windows
-          CIBW_BUILD: "cp38-win_amd64 cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64 cp314-win_amd64"
+          CIBW_BUILD: "cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64 cp314-win_amd64"
           CIBW_SKIP: "pp* *-win32 *-win_arm64"
           CIBW_TEST_COMMAND: >-
             python -c "import rodhypix; print(rodhypix.HAS_NATIVE_CPP)"
