@@ -19,7 +19,18 @@ jobs:
           CIBW_BUILD: "cp39-win_amd64 cp310-win_amd64 cp311-win_amd64 cp312-win_amd64 cp313-win_amd64 cp314-win_amd64"
           CIBW_SKIP: "pp* *-win32 *-win_arm64"
           CIBW_TEST_COMMAND: >-
-            python -c "import rodhypix; print(rodhypix.HAS_NATIVE_CPP)"
+            python -c "import rodhypix; assert rodhypix.HAS_NATIVE_CPP, 'Native C++ backend is not available'"
+
+      - name: Verify Windows wheel coverage
+        shell: pwsh
+        run: |
+          $targets = @("cp39", "cp310", "cp311", "cp312", "cp313", "cp314")
+          $wheelNames = Get-ChildItem -Path wheelhouse -Filter "*.whl" | Select-Object -ExpandProperty Name
+          foreach ($target in $targets) {
+            if (-not ($wheelNames | Where-Object { $_ -like "*-$target-$target-win_amd64.whl" })) {
+              throw "Missing Windows wheel for $target"
+            }
+          }
 
       - uses: actions/upload-artifact@v4
         with:
