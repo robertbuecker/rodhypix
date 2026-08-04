@@ -2,17 +2,11 @@
 
 Standalone reader for Rigaku `.rodhypix` detector images.
 
-Import as:
-
-```python
-from rodhypix import read_rod_image
-```
-
 ## Features
 
 - Read native `.rodhypix` images without CrysAlisPro
 - Access detector and experiment metadata
-- Optional native C++ TY6 backend
+- Native C++ TY6 backend
 - Pure Python fallback
 
 ## Installation
@@ -21,7 +15,9 @@ from rodhypix import read_rod_image
 pip install rodhypix
 ```
 
-Optional plotting support:
+On Windows, this will install native decompression from wheels without compilation.
+
+Plotting support (only required for example notebooks):
 
 ```bash
 pip install "rodhypix[viz]"
