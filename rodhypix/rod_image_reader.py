@@ -217,6 +217,11 @@ class RODImageReader:
             f.seek(offset + general_nbytes + special_nbytes + 712)
             distance_mm = struct.unpack("<d", f.read(8))[0]
 
+            # Direct-space microscopy pixel size (stored in micrometers).
+            # Offset relative to the end of the special header section.
+            f.seek(offset + general_nbytes + special_nbytes + 3856)
+            direct_space_pixel_size_um = struct.unpack("<d", f.read(8))[0]
+
         return {
             "bin_x": bin_x,
             "bin_y": bin_y,
@@ -233,6 +238,8 @@ class RODImageReader:
             "detector_type": detector_type,
             "real_px_size_x": real_px_size_x,
             "real_px_size_y": real_px_size_y,
+            "direct_space_pixel_size_um": direct_space_pixel_size_um,
+            "direct_space_pixel_size_nm": direct_space_pixel_size_um * 1000.0,
             "start_angles_steps": start_angles_steps,
             "end_angles_steps": end_angles_steps,
             "step_to_rad": step_to_rad,
