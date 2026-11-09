@@ -1,8 +1,9 @@
 name: Build and publish release to PyPI
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: read
@@ -15,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:
@@ -23,7 +24,7 @@ jobs:
 
       - name: Validate release tag
         env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_TAG: ${{ github.ref_name }}
         run: >-
           python -c "import os, tomllib; version = tomllib.load(open('pyproject.toml', 'rb'))['project']['version']; tag = os.environ['RELEASE_TAG']; assert tag == f'v{version}', f'Release tag {tag!r} must be v{version}'"
 
