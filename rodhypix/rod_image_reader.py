@@ -217,9 +217,8 @@ class RODImageReader:
             f.seek(offset + general_nbytes + special_nbytes + 712)
             distance_mm = struct.unpack("<d", f.read(8))[0]
 
-            # Direct-space microscopy pixel size (stored in micrometers).
-            # Offset relative to the end of the special header section.
-            f.seek(offset + general_nbytes + special_nbytes + 3856)
+            # Direct-space microscopy pixel size (micrometers) at file offset 5616.
+            f.seek(5616)
             direct_space_pixel_size_um = struct.unpack("<d", f.read(8))[0]
 
         return {
